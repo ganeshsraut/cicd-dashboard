@@ -42,7 +42,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(limiter);
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/health', (_req, res) => {
   res.status(200).json({
     status: 'healthy',
     timestamp: new Date().toISOString(),
@@ -52,7 +52,7 @@ app.get('/health', (req, res) => {
 });
 
 // Basic API routes
-app.get('/api', (req, res) => {
+app.get('/api', (_req, res) => {
   res.json({
     message: 'CI/CD Pipeline Health Dashboard API',
     version: '1.0.0',
@@ -61,7 +61,7 @@ app.get('/api', (req, res) => {
 });
 
 // Organizations routes
-app.get('/api/organizations', (req, res) => {
+app.get('/api/organizations', (_req, res) => {
   res.json({
     organizations: [
       {
@@ -75,7 +75,7 @@ app.get('/api/organizations', (req, res) => {
 });
 
 // Projects routes
-app.get('/api/projects', (req, res) => {
+app.get('/api/projects', (_req, res) => {
   res.json({
     projects: [
       {
@@ -90,7 +90,7 @@ app.get('/api/projects', (req, res) => {
 });
 
 // Pipelines routes
-app.get('/api/pipelines', (req, res) => {
+app.get('/api/pipelines', (_req, res) => {
   res.json({
     pipelines: [
       {
@@ -106,7 +106,7 @@ app.get('/api/pipelines', (req, res) => {
 });
 
 // Metrics endpoint
-app.get('/api/metrics/summary', (req, res) => {
+app.get('/api/metrics/summary', (_req, res) => {
   res.json({
     total_pipelines: 100,
     successful_pipelines: 85,
@@ -140,7 +140,7 @@ io.on('connection', (socket) => {
 });
 
 // Error handling middleware
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error(err.stack);
   res.status(500).json({
     error: 'Something went wrong!',
@@ -149,10 +149,10 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 });
 
 // 404 handler
-app.use('*', (req, res) => {
+app.use('*', (_req, res) => {
   res.status(404).json({
     error: 'Route not found',
-    path: req.originalUrl
+    path: _req.originalUrl
   });
 });
 

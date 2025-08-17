@@ -15,7 +15,7 @@ interface Metrics {
 
 const Dashboard: React.FC = () => {
   const [metrics, setMetrics] = useState<Metrics | null>(null);
-  const [socket, setSocket] = useState<Socket | null>(null);
+  const [_socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
